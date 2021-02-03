@@ -1,5 +1,6 @@
 package com.example.study.controller;
 
+import com.example.study.model.SearchParam;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,6 +26,13 @@ public class GetController {
 //
 //        return id+pwd;
 //    }
-
+    @GetMapping("/getMultiParameter")
+    public SearchParam MultiParameter(SearchParam searchParam){
+        System.out.println(searchParam.getAccount());
+        System.out.println(searchParam.getEmail());
+        System.out.println(searchParam.getPage());
+        //{"account": "", "email":"","page": 0}
+        return searchParam; // json 형태로 반환함
+    }
 
 }
