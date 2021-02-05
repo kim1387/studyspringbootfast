@@ -2,10 +2,11 @@ package com.example.study.repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entinty.User;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class UserRepositoryTest extends StudyApplicationTests {
     private UserRepository userRepository;
 
     @Test
+    @Transactional
+
     public void create(){
         // String sql insert into user (%s %s, %d) value (account, email, age);
         User user = new User();
@@ -44,6 +47,8 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     }
     @Test
+    @Transactional
+
     public void update(){
         Optional<User> user = userRepository.findById(2L);// 2L인 이유는 LONG Type이기 때문
 
@@ -57,20 +62,23 @@ public class UserRepositoryTest extends StudyApplicationTests {
     }
     //@DeleteMapping("/api/user")
     @Test
+    @Transactional
     public void delete(){
-        Optional<User> user = userRepository.findById(2L);// 2L인 이유는 LONG Type이기 때문 2번 선택
+        Optional<User> user = userRepository.findById(3L);// 2L인 이유는 LONG Type이기 때문 2번 선택
+        Assertions.assertTrue(user.isPresent()); // real test code 값을 찾아 왔을 때 값이 있어야하고
 
         user.ifPresent(selectedUser ->{
             userRepository.delete(selectedUser); // delete이기 때문에 반환값이 없음
 
         } );
         Optional<User> deleteUser = userRepository.findById(2L);
-
-        if (deleteUser.isPresent()){
-            System.out.println("데이터 존재 : "+deleteUser.get());
-        }else{
-            System.out.println("데이터 삭제 데이터 없음");
-        }
+//
+//        if (deleteUser.isPresent()){
+//            System.out.println("데이터 존재 : "+deleteUser.get());
+//        }else{
+//            System.out.println("데이터 삭제 데이터 없음");
+//        }
+        Assertions.assertFalse(deleteUser.isPresent()); // false여야 한다 지워졌으므로
     }
 
 }
