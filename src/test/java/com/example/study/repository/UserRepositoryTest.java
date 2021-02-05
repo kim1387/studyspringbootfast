@@ -4,6 +4,7 @@ import com.example.study.StudyApplicationTests;
 import com.example.study.model.entinty.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -38,16 +39,38 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
         user.ifPresent(selectedUser ->{
             System.out.println("user : "+selectedUser);
+            System.out.println("email : "+selectedUser.getEmail());
         } );
 
     }
-
+    @Test
     public void update(){
+        Optional<User> user = userRepository.findById(2L);// 2L인 이유는 LONG Type이기 때문
 
+        user.ifPresent(selectedUser ->{
+            selectedUser.setAccount("PPPP");
+            selectedUser.setUpdatedAt(LocalDateTime.now());
+            selectedUser.setUpdatedBy("Update method");
+
+            userRepository.save(selectedUser);
+        } );
     }
-
+    //@DeleteMapping("/api/user")
+    @Test
     public void delete(){
+        Optional<User> user = userRepository.findById(2L);// 2L인 이유는 LONG Type이기 때문 2번 선택
 
+        user.ifPresent(selectedUser ->{
+            userRepository.delete(selectedUser); // delete이기 때문에 반환값이 없음
+
+        } );
+        Optional<User> deleteUser = userRepository.findById(2L);
+
+        if (deleteUser.isPresent()){
+            System.out.println("데이터 존재 : "+deleteUser.get());
+        }else{
+            System.out.println("데이터 삭제 데이터 없음");
+        }
     }
 
 }
