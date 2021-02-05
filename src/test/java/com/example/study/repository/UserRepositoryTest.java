@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +31,14 @@ public class UserRepositoryTest extends StudyApplicationTests {
         System.out.println("newUser : "+newUser);// lombok에서 toString을 자동으로 생성
     }
 
+    @Test
     public void read(){
+        Optional<User> user = userRepository.findById(2L);// 2L인 이유는 LONG Type이기 때문
+
+
+        user.ifPresent(selectedUser ->{
+            System.out.println("user : "+selectedUser);
+        } );
 
     }
 
