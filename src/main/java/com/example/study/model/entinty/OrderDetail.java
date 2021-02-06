@@ -3,17 +3,17 @@ package com.example.study.model.entinty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"user","item"})//lombok 사용시 tostring을 자동으로 생성해주게 되는데 User와 OrderDetail이 서로 상호참조 하고 있기 떄문에
+                                    // 서로의 tostring이 계속 호출되어 오버플로우가 발생이 됨으로 제외해준다.
 public class OrderDetail {
 
     @Id
@@ -22,8 +22,13 @@ public class OrderDetail {
 
     private LocalDateTime orderAt;
 
-    private Long userId;
+    //N:1
+    @ManyToOne
+    private User user;
 
-    private Long itemId;
+
+    // N : 1
+    @ManyToOne
+    private Item item;
 
 }

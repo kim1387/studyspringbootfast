@@ -2,6 +2,7 @@ package com.example.study.repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entinty.Item;
+import com.example.study.model.entinty.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,18 @@ public class ItemRepositoryTest extends StudyApplicationTests {
     }
 
     @Test
+    @Transactional
     public void read(){
-        Long id = 4L;
         Optional<Item> item = itemRepository.findById(4L);
         Assertions.assertTrue(item.isPresent());
+        item.ifPresent(newItem->{
+
+            newItem.getOrderDetailList().stream().forEach(orderDetail -> {
+                User user = orderDetail.getUser();
+                assertNotNull(user);
+                System.out.println(user);
+            });
+        });
 //        item .ifPresent(item1 ->{
 //            System.out.println(item1);
 //        });

@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 // @Table(name = "user") 테이블명과 클래스명이 같다면 선언 안해도 됌
 @Data // lombok 자동으로 constructor와 dependable method 선언
 @AllArgsConstructor // 모든 매개변수가 들어가는 constructor
 @NoArgsConstructor // 디폴트 생성자?
 @Entity
+
 public class User {
 
     @Id//식별자
@@ -32,5 +34,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
+    //1:N
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    private List<OrderDetail> orderDetailList;
 }
