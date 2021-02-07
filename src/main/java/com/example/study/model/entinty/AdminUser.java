@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.List;
 
-// @Table(name = "user") 테이블명과 클래스명이 같다면 선언 안해도 됌
-@Data // lombok 자동으로 constructor와 dependable method 선언
-@AllArgsConstructor // 모든 매개변수가 들어가는 constructor
-@NoArgsConstructor // 디폴트 생성자?
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-
-public class User {
+public class AdminUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +26,13 @@ public class User {
 
     private String status;
 
-    private String email;
+    private String role;
 
-    private String phoneNumber;
+    private LocalDateTime lastLoginAt;
+
+    private LocalDateTime passwordUpdatedAt;
+
+    private int loginFailCount;
 
     private LocalDateTime registeredAt;
 
@@ -41,5 +45,4 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
 }
