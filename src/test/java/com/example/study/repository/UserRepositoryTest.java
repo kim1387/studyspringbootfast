@@ -37,7 +37,11 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Test
     @Transactional
     public void read(){
-        Optional<User> user = userRepository.findById(7L);// 7L인 이유는 LONG Type이기 때문
+
+        //select * from user WHERE id = ?
+        Optional<User> user = userRepository.findByAccount("TestUser01");// 7L인 이유는 LONG Type이기 때문
+                                                                         // 오류 발생! 이유는 db에 TestUser01이 2명이있어서!
+        System.out.println(user);
         assertTrue(user.isPresent());
 
         user.ifPresent(selectedUser ->{
