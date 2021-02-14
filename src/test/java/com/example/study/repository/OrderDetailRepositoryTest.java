@@ -19,15 +19,5 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
     @Transactional
     public void create(){
         OrderDetail orderDetail = new OrderDetail();
-
-        orderDetail.setOrderAt(LocalDateTime.now());
-
-        //orderDetail.setUserId(7L); user를 타입을 User로 바꿨음
-
-        //orderDetail.setItemId(4L);
-
-        OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
-
-        Assertions.assertNotNull(newOrderDetail);
     }
 }

@@ -21,13 +21,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
     @Transactional
     public void create(){
 
-        Item item = new Item();
-        item.setName("노트북");
-        item.setPrice(100000);
-        item.setContent("삼성 노트북");
 
-        Item newItem = itemRepository.save(item);
-        Assertions.assertNotNull(newItem);
     }
     @Test
     @Transactional
@@ -45,19 +39,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
     @Test
     @Transactional
     public void read(){
-        Optional<Item> item = itemRepository.findById(4L);
-        Assertions.assertTrue(item.isPresent());
-        item.ifPresent(newItem->{
 
-            newItem.getOrderDetailList().stream().forEach(orderDetail -> {
-                User user = orderDetail.getUser();
-                assertNotNull(user);
-                System.out.println(user);
-            });
-        });
-//        item .ifPresent(item1 ->{
-//            System.out.println(item1);
-//        });
     }
 
 }

@@ -21,40 +21,12 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
-        // String sql insert into user (%s %s, %d) value (account, email, age);
-        User user = new User();
-        //user.setId(); AI이므로 자동으로 값이 들어감
-        user.setAccount("TestUser01");
-        user.setEmail("TestUser01@gmail.com");
-        user.setPhoneNumber("010-1111-3333");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser1");
 
-        User newUser = userRepository.save(user);
-        System.out.println("newUser : "+newUser);// lombok에서 toString을 자동으로 생성
     }
 
     @Test
     @Transactional
     public void read(){
-
-        //select * from user WHERE id = ?
-        Optional<User> user = userRepository.findByAccount("TestUser01");// 7L인 이유는 LONG Type이기 때문
-                                                                         // 오류 발생! 이유는 db에 TestUser01이 2명이있어서!
-        System.out.println(user);
-        assertTrue(user.isPresent());
-
-        user.ifPresent(selectedUser ->{
-
-            //System.out.println("user : "+selectedUser);
-            //System.out.println("email : "+selectedUser.getEmail());
-
-            selectedUser.getOrderDetailList().stream().forEach(detail -> {
-                Item item = detail.getItem();
-                assertNotNull(item);
-                System.out.println(item);
-            });
-        } );
 
     }
     @Test
